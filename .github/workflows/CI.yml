@@ -34,7 +34,9 @@ jobs:
         run: dotnet test . --no-build
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3.2.2
+        uses: actions/upload-artifact@v6
         with:
-          path: /**/bin/Release/*
+          path: |
+            /**/bin/Release/*.nuget
+            /**/bin/Release/*.snuget
           
