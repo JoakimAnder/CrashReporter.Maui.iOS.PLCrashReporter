@@ -1,0 +1,42 @@
+name: CD
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install MAUI iOS workload
+        run: dotnet workload install maui-ios
+
+      - name: Restore dependencies
+        run: dotnet restore .
+
+      - name: Build & Pack
+        run: dotnet build . --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test . --no-build
+
+      - name: Publish to NuGet
+        run: |
+          dotnet nuget push Source/CrashReporter.Maui.iOS.PLCrashReporter/bin/Release/*.nupkg \
+            --api-key ${{ secrets.NUGET_API_KEY }} \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
+          dotnet nuget push Source/CrashReporter.Maui.iOS.PLCrashReporter/bin/Release/*.snupkg \
+            --api-key ${{ secrets.NUGET_API_KEY }} \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate

@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/Source/">
+    <Project Path="Source/CrashReporter.Maui.iOS.PLCrashReporter/CrashReporter.Maui.iOS.PLCrashReporter.csproj" />
+  </Folder>
+</Solution>
