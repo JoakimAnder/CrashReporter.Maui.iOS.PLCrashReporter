@@ -32,11 +32,15 @@ jobs:
 
       - name: Test
         run: dotnet test . --configuration Release --no-build
-
+        
+      - name: Stage packages
+        run: |
+          mkdir staging
+          find . -path '*/bin/Release/*.nupkg' -exec cp {} staging/ \;
+          find . -path '*/bin/Release/*.snupkg' -exec cp {} staging/ \;
+      
       - name: Upload Artifact
         uses: actions/upload-artifact@v6
         with:
-          path: |
-            **/bin/Release/*.nupkg
-            **/bin/Release/*.snupkg
+          path: staging/
           
