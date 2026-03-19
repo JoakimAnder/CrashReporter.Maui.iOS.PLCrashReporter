@@ -31,12 +31,12 @@ jobs:
         run: dotnet build . --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test . --no-build
+        run: dotnet test . --configuration Release --no-build
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v6
         with:
           path: |
-            /**/bin/Release/*.nuget
-            /**/bin/Release/*.snuget
+            **/bin/Release/*.nupkg
+            **/bin/Release/*.snupkg
           
