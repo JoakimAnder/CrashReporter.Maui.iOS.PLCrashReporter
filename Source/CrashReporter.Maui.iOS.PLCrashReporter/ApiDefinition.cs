@@ -13,9 +13,6 @@ interface PLCrashReporterConfig
     [Export("defaultConfiguration")]
     PLCrashReporterConfig DefaultConfiguration { get; }
 
-    [Export("init")]
-    NativeHandle Constructor();
-
     [Export("initWithBasePath:")]
     NativeHandle Constructor(string basePath);
 
